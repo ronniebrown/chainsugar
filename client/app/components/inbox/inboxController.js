@@ -2,9 +2,9 @@
 
 //load module
 angular.module('trApp')
-  .controller('SignInPageController', ['$scope', '$location', SignInPageController]);
+  .controller('inboxController', ['$scope', '$location', inboxController]);
 
-  function SignInPageController() {
+  function inboxController() {
 
   }
 
