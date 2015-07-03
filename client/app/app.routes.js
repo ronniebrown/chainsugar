@@ -30,6 +30,10 @@
             templateUrl: 'app/components/taskSearch/taskSearch.html',
             controller: 'TaskSearchController'
         })
+        .when('/inbox', {
+            templateUrl: 'app/components/inbox/inbox.html',
+            controller: 'inboxController'
+        })
         .when('/settings', {
             templateUrl: 'app/components/userSettings/template.html',
             controller: 'SettingsController'
