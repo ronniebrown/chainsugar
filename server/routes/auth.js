@@ -21,9 +21,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: "891754861666-m67s19e3f1o1ccln20ih9ukmrambkudr.apps.googleusercontent.com",
-    clientSecret: "n0atVUUko6pc-jeiRPAyCHpb",
-    callbackURL: "http://127.0.0.1:8000/auth/google/callback"
+    clientID: config.GOOGLE_APP_ID,
+    clientSecret: config.GOOGLE_APP_SECRET,
+    callbackURL: config.GOOGLE_APP_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({
@@ -140,5 +140,18 @@ module.exports = function(app) {
       res.status(401).end();
     }
   });
+
+  app.get('/profile/:id', function(req, res, next) {
+    var userId = req.params.id;
+    User.findOne({
+      _id: id
+    }).exec(function(err, user) {
+      if (err) return next(err);
+      if (!user) return next(new Error('Failed to load User ' + id));
+      req.profile = user;
+      next();
+    });
+  });
+
 
 };

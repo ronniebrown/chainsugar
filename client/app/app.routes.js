@@ -26,6 +26,10 @@
             templateUrl: 'app/components/taskDetails/task-view.html',
             controller: 'TaskViewController'
         })
+        .when('/profile/:id', {
+            templateUrl: 'app/components/profile/template.html',
+            controller: 'ProfileController'
+        })
         .when('/search', {
             templateUrl: 'app/components/taskSearch/taskSearch.html',
             controller: 'TaskSearchController'
