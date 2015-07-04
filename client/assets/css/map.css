@@ -1,11 +1,20 @@
 body { margin: 0; padding: 0;}
 
+/*body, html, .leaflet-container {
+  height: 100%;
+  width: 80%;
+}*/
+
 #map { 
   position: absolute;
   top: 0;
   bottom: 0;
   width: 80%;
   border-right: 1px solid #c0c0c0;
+}
+
+#map, html, .leaflet-container {
+  height: 100%;
 }
 
 #sidebar {

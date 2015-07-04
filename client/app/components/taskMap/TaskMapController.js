@@ -1,8 +1,8 @@
 (function(){
 
   //load module
-  // angular.module('trApp')
-  //   .controller('TaskMapController', ['$scope', '$location']);
+angular.module('trApp')
+  .controller('TaskMapController', ['$scope', '$location']);
 
 angular.module('trApp').directive('mapbox', [
   function () {
@@ -12,10 +12,21 @@ angular.module('trApp').directive('mapbox', [
       scope: {
         callback: "="
       },
-      template: '<div></div>',
+      template: '<div id="map"></div>',
       link: function (scope, element, attributes) {
         L.mapbox.accessToken = "pk.eyJ1Ijoicm9ubmllYnJvd24iLCJhIjoiZjE0NDRmMmJiZTYyNzZlY2Y2OGNhNGM5NDg3Yjc5ZjkifQ.oWwrU2zjDqgvikSLJODqvg";
-        var map = L.mapbox.map(element[0], 'examples.map-i86nkdio');
+        // var map = L.mapbox.map(element[0], 'ronniebrown.mk1nidh4');
+        var map = L.mapbox.map('map', null);
+
+        var layers = {
+          "cray": L.mapbox.tileLayer('ronniebrown.mk1nidh4'),
+          "concrete jungle": L.mapbox.tileLayer('ronniebrown.mk213a65')
+        };
+
+        layers["cray"].addTo(map);
+        L.control.layers(layers).addTo(map);
+
+        L.control.scale({imperial: true}).addTo(map);
         scope.callback(map);
       }
     };
@@ -31,62 +42,36 @@ angular.module('trApp').controller('TaskMapController', [
   }
 ]);
 
-    // function setUpMap() {
-    //   // Provide your access token
-    //   // L.mapbox.accessToken = 'pk.eyJ1Ijoicm9ubmllYnJvd24iLCJhIjoiZjE0NDRmMmJiZTYyNzZlY2Y2OGNhNGM5NDg3Yjc5ZjkifQ.oWwrU2zjDqgvikSLJODqvg';
-    // mapboxService.init({ accessToken: 'pk.eyJ1Ijoicm9ubmllYnJvd24iLCJhIjoiZjE0NDRmMmJiZTYyNzZlY2Y2OGNhNGM5NDg3Yjc5ZjkifQ.oWwrU2zjDqgvikSLJODqvg' });
-    // // Create a map in the div #map
-    // var map = L.mapbox.map(this.element.dom, 'map', null);
+// function showMarkers() {
+// var icons = {
+//   bunnyIcon : L.icon({
+//     iconUrl: "assets/img/bunny.png",
+//     iconSize: [30, 15],
+//     className: "icon"
+//   })
+// };
 
-    // var layers = {
-    //   "cray": L.mapbox.tileLayer('ronniebrown.mk1nidh4'),
-    //   "concrete jungle": L.mapbox.tileLayer('ronniebrown.mk213a65')
-    // };
+// var layer = L.geoJson(markers, {
+//   pointToLayer: function(feature, latLng) {
+//     return L.marker(latLng, {
+//       title: feature.properties.title,
+//       icon: icons[feature.properties.description]
+//     });
+//   },
+//   onEachFeature: function(feature, layer) {
+//     Layer.bindPopup(feature.properties.title);
 
-    // layers["cray"].addTo(map);
-    // L.control.layers(layers).addTo(map);
+//     Layer.on("click", function(event) {
+//       sidebar = getElementById("sidebar");
 
-    // L.control.scale({imperial: true}).addTo(map);
+//     })
+//   }
+// });
 
-    // map.setView([37.719, -122.435], 11);
+// layer.addTo(map);
+// };
 
-    // }
-
-    // function showMarkers() {
-    // var icons = {
-    //   bunnyIcon : L.icon({
-    //     iconUrl: "assets/img/bunny.png",
-    //     iconSize: [30, 15],
-    //     className: "icon"
-    //   }),
-    //   taskIcon : L.icon({
-    //     iconUrl: "images/task.png",
-    //     iconSize: [30, 15],
-    //     className: "icon"
-    //   })
-    // };
-
-    // var layer = L.geoJson(markers, {
-    //   pointToLayer: function(feature, latLng) {
-    //     return L.marker(latLng, {
-    //       title: feature.properties.title,
-    //       icon: icons[feature.properties.description]
-    //     });
-    //   },
-    //   onEachFeature: function(feature, layer) {
-    //     Layer.bindPopup(feature.properties.title);
-
-    //     Layer.on("click", function(event) {
-    //       sidebar = getElementById("sidebar");
-
-    //     })
-    //   }
-    // });
-
-    // layer.addTo(map);
-    // };
-
-    // setUpMap();
-    // showMarkers();
+// setUpMap();
+// showMarkers();
 
 })();
