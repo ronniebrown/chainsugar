@@ -39,7 +39,8 @@
             controller: 'inboxController'
         })
         .when('/map', {
-            templateUrl: 'app/components/taskMap/task-map.html',
+            template: '<mapbox callback="callback"></mapbox>',
+            // templateUrl: 'app/components/taskMap/task-map.html',
             controller: 'TaskMapController'
         })
         .when('/settings', {
