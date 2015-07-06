@@ -12,6 +12,17 @@ body { margin: 0; padding: 0;}
   height: 100%;
 }
 
+#filters {
+  border: 1px solid #a0a0a0;
+  background: #fff;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 5px;
+  border-radius: 3px;
+}
+
 #sidebar {
   position: absolute;
   top: 0;

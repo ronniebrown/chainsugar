@@ -32,37 +32,72 @@ angular.module('trApp').controller('TaskMapController', [
   '$scope',
   function ($scope) {
     $scope.callback = function (map) {
+      // pass in filterValues when using filters
+      function showMarkers() {
+      var icons = {
+        bunnyIcon : L.icon({
+          iconUrl: "assets/img/bunny.png",
+          iconSize: [30, 15],
+          className: "icon"
+        })
+      };
+
+      var layer = L.geoJson(markers, {
+        pointToLayer: function(feature, latLng) {
+          return L.marker(latLng, {
+            title: feature.properties.title,
+            icon: icons[feature.properties.description]
+          });
+          // markers[feature.properties.taskId] = L.marker(latLng, {
+        },
+        onEachFeature: function(feature, Layer) {
+          Layer.bindPopup(feature.properties.title);
+          Layer.on("click", function(event) {
+            sidebar = getElementById("sidebar");
+              sidebar.innerHTML = "<h1>" + feature.properties.title + "</h1>" +
+                "<p><strong>Task:</strong>" + feature.properties.name + "</p>" +
+                "<p><strong>Deadline:</strong>" + feature.properties.deadline + "</p>" +
+                "<p><strong>Description:</strong>" + feature.properties.description + "</p>";
+          });
+
+          Layer.on("dblclick", function(event) {
+            showUserStats();
+          });
+        }  
+      });
+      layer.addTo(map);
+      };
       map.setView([37.719, -122.435], 11);
     };
   }
 ]);
+      // function updateMarkers(geojson) {
+      //   geojson.feature.forEach(function(feature) {
+      //     markers[feature.properties.taskId].setLatLng(
+      //       feature.geometry.coordinates.reverse());
+      //   });
+      // }
+      // filter: function(feature) {
+        //   return filterValues[feature.properties.description];
+        // }
 
-function showMarkers() {
-var icons = {
-  bunnyIcon : L.icon({
-    iconUrl: "assets/img/bunny.png",
-    iconSize: [30, 15],
-    className: "icon"
-  })
-};
+      // function getFilterValues() {
+      //   var checkboxes = document.getElementByClassName('filter');
 
-var layer = L.geoJson(markers, {
-  pointToLayer: function(feature, latLng) {
-    return L.marker(latLng, {
-      title: feature.properties.title,
-      icon: icons[feature.properties.description]
-    });
-  },
-  onEachFeature: function(feature, layer) {
-    Layer.bindPopup(feature.properties.title);
-    Layer.on("click", function(event) {
-      sidebar = getElementById("sidebar");
-    });
-  }
-});
+      //   var values = {};
+      //   for (var i = 0; i < checkboxes.length; i++) {
+      //     values[checkboxes[i].value] = checkboxes[i].checked;
+      //   }
+      //   return values;
+      // }
 
-layer.addTo(map);
-};
+      // var markerLayer = showMarkers(getFilterValues());
+
+      // var filters = document.getElementById('filters');
+      // filters.onchange = function() {
+      //   map.removeLayer(markerLayer);
+      //   markerLayer = showMarkers(getFilterValues());
+      // };
 
 // setUpMap();
 // showMarkers();
