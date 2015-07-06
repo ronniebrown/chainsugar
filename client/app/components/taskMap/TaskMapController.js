@@ -1,7 +1,7 @@
 (function(){
 
-angular.module('trApp').directive('mapbox', [
-  function () {
+angular.module('trApp').directive('mapbox', ['$location', '$routeParams', 
+  function ($location, $routeParams) {
     return {
       restrict: 'EA',
       replace: true,
@@ -29,7 +29,7 @@ angular.module('trApp').directive('mapbox', [
 ]);
 
 angular.module('trApp').controller('TaskMapController', [
-  '$scope', 'TaskService'
+  '$scope', 'TaskService',
   function ($scope, TaskService) {
     $scope.callback = function (map) {
       // pass in filterValues when using filters
@@ -43,16 +43,16 @@ angular.module('trApp').controller('TaskMapController', [
       };
 
       TaskService.retrieveAllTasks().success(function(tasks){
-      $scope.tasks = _.map(tasks, function(task){
-        
-        return task;
+        $scope.tasks = _.map(tasks, function(task){
+          task.information.address.geometry 
+          return task;
+        });
       });
-    });
 
       var layer = L.geoJson(markers, {
         pointToLayer: function(feature, latLng) {
-          return L.marker(latLng, {
-            title: feature.properties.title,
+          markers[feature.properties.taskId] = L.marker(latLng, {
+            title: task.information.name,
             icon: icons[feature.properties.description]
           });
           // markers[feature.properties.taskId] = L.marker(latLng, {
