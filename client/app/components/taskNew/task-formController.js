@@ -123,6 +123,13 @@ angular.module('trApp').controller('TaskFormController', ['$scope', '$location',
       }
     });
 
+    $scope.$watchCollection('results',function(){
+    if(angular.isDefined($scope.results)){
+      console.log(results);
+      //$scope.form[city] = $scope.results;
+    }
+});
+
     // http POST on form submit
     $scope.createTask = function(){
       TaskService.addTask($scope.form).success(function(){
