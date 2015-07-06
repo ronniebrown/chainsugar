@@ -1,9 +1,5 @@
 (function(){
 
-  //load module
-// angular.module('trApp')
-//   .controller('TaskMapController', ['$scope', '$location']);
-
 angular.module('trApp').directive('mapbox', [
   function () {
     return {
@@ -15,7 +11,6 @@ angular.module('trApp').directive('mapbox', [
       template: '<div id="map"></div>',
       link: function (scope, element, attributes) {
         L.mapbox.accessToken = "pk.eyJ1Ijoicm9ubmllYnJvd24iLCJhIjoiZjE0NDRmMmJiZTYyNzZlY2Y2OGNhNGM5NDg3Yjc5ZjkifQ.oWwrU2zjDqgvikSLJODqvg";
-        // var map = L.mapbox.map(element[0], 'ronniebrown.mk1nidh4');
         var map = L.mapbox.map('map', null);
 
         var layers = {
@@ -42,34 +37,32 @@ angular.module('trApp').controller('TaskMapController', [
   }
 ]);
 
-// function showMarkers() {
-// var icons = {
-//   bunnyIcon : L.icon({
-//     iconUrl: "assets/img/bunny.png",
-//     iconSize: [30, 15],
-//     className: "icon"
-//   })
-// };
+function showMarkers() {
+var icons = {
+  bunnyIcon : L.icon({
+    iconUrl: "assets/img/bunny.png",
+    iconSize: [30, 15],
+    className: "icon"
+  })
+};
 
-// var layer = L.geoJson(markers, {
-//   pointToLayer: function(feature, latLng) {
-//     return L.marker(latLng, {
-//       title: feature.properties.title,
-//       icon: icons[feature.properties.description]
-//     });
-//   },
-//   onEachFeature: function(feature, layer) {
-//     Layer.bindPopup(feature.properties.title);
+var layer = L.geoJson(markers, {
+  pointToLayer: function(feature, latLng) {
+    return L.marker(latLng, {
+      title: feature.properties.title,
+      icon: icons[feature.properties.description]
+    });
+  },
+  onEachFeature: function(feature, layer) {
+    Layer.bindPopup(feature.properties.title);
+    Layer.on("click", function(event) {
+      sidebar = getElementById("sidebar");
+    });
+  }
+});
 
-//     Layer.on("click", function(event) {
-//       sidebar = getElementById("sidebar");
-
-//     })
-//   }
-// });
-
-// layer.addTo(map);
-// };
+layer.addTo(map);
+};
 
 // setUpMap();
 // showMarkers();

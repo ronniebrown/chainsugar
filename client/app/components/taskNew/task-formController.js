@@ -112,6 +112,7 @@
 
 
 angular.module('trApp').controller('TaskFormController', ['$scope', '$location', 'TaskService', function($scope, $location, TaskService) {
+    
     $scope.form = {};
 
     $scope.myapitoken = "pk.eyJ1Ijoicm9ubmllYnJvd24iLCJhIjoiZjE0NDRmMmJiZTYyNzZlY2Y2OGNhNGM5NDg3Yjc5ZjkifQ.oWwrU2zjDqgvikSLJODqvg";
@@ -123,20 +124,16 @@ angular.module('trApp').controller('TaskFormController', ['$scope', '$location',
       }
     });
 
-    $scope.$watchCollection('results',function(){
-    if(angular.isDefined($scope.results)){
-      console.log(results);
-      //$scope.form[city] = $scope.results;
-    }
-});
-
     // http POST on form submit
     $scope.createTask = function(){
-      TaskService.addTask($scope.form).success(function(){
-        $location.path('/tasks');
-      }).catch(function(err){
-        console.log(err);
-        $scope.errorMessage = "task creation error";
+      $scope.$watchCollection('addressSelection', function() {
+        $scope.form['address'] = $scope.addressSelection;
+          TaskService.addTask($scope.form).success(function(){
+            $location.path('/tasks');
+          }).catch(function(err){
+            console.log(err);
+            $scope.errorMessage = "task creation error";
+        });
       });
     };
 
@@ -144,7 +141,7 @@ angular.module('trApp').controller('TaskFormController', ['$scope', '$location',
       $location.path('/tasks');
     };
   }
-  ]);
+]);
 
 })();
 
