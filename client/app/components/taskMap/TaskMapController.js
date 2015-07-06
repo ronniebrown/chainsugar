@@ -29,8 +29,8 @@ angular.module('trApp').directive('mapbox', [
 ]);
 
 angular.module('trApp').controller('TaskMapController', [
-  '$scope',
-  function ($scope) {
+  '$scope', 'TaskService'
+  function ($scope, TaskService) {
     $scope.callback = function (map) {
       // pass in filterValues when using filters
       function showMarkers() {
@@ -41,6 +41,13 @@ angular.module('trApp').controller('TaskMapController', [
           className: "icon"
         })
       };
+
+      TaskService.retrieveAllTasks().success(function(tasks){
+      $scope.tasks = _.map(tasks, function(task){
+        
+        return task;
+      });
+    });
 
       var layer = L.geoJson(markers, {
         pointToLayer: function(feature, latLng) {
