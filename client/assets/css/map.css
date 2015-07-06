@@ -1,7 +1,7 @@
 body { margin: 0; padding: 0;}
 
 #map { 
-  position: relative;
+  position: absolute;
   top: 0;
   bottom: 0;
   width: 80%;
@@ -9,15 +9,15 @@ body { margin: 0; padding: 0;}
 }
 
 #map, html, .leaflet-container {
-  height: 90%;
+  height: 100%;
 }
 
 #sidebar {
-  position: relative;
+  position: absolute;
   top: 0;
   right: 0; 
   width: 19%; 
-  height: 90%;
+  height: 100%;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 10px;
   margin-left: 0; 
